@@ -1,0 +1,41 @@
+<div class="content">
+  <div class="container">
+    <div class="load_more">
+      Navigation (List of Categories)
+      <select ng-init="listCategory()" ng-options="option.name for option in categories" ng-model="selectedOption"></select>
+      <ul id="myList">
+        <li>
+          <div class="l_g" ng-init="listArticle()">
+            <div class="col-md-3 praesent" ng-repeat="articles in data" ng-if="selectedOption.id == articles.cat_id">
+              <div class="l_g_r" ng-click="articleDetail(articles.id)">
+                <div class="dapibus">
+                  <h2>{{articles.title}}</h2>
+                  <img ng-src="{{path}}{{articles.image}}" class="img-responsive" alt="">
+                  <p>{{articles.body}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 integ">
+              <div class="l_g_r">
+                <div class="posts">
+                  <h4>List of Articles(DESC)</h4>
+                  <h6 ng-repeat="articles in data | orderBy : 'articles.title':true"><a ng-click="articleDetail(articles.id)">{{articles.title}}</a></h6>
+                </div>
+                <div class="comments">
+                  <h4>List of Articles(Group by category)</h4>
+                  <h6 ng-repeat="article in data | groupBy: 'cat_id'">
+                    <p class="capitalize">{{article[0].name}} </p>
+                    <li ng-repeat="subarticle in article">
+                        <a ng-click="articleDetail(subarticle.id)">{{ subarticle.title }}</a> 
+                    </li>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
